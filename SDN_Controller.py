@@ -1,5 +1,7 @@
 from jnpr.junos import Device
 import LLDP_Setup
+import Topology
+import Addressing
 
 #=====================================================================================
 
@@ -13,5 +15,11 @@ if_s = ['ge-0/0/1', 'ge-0/0/2', 'ge-0/0/3', 'ge-0/0/4', 'ge-0/0/5']
 
 if __name__ == "__main__":
 
-    LLDP_Setup(dlist, if_s)
+    LLDP_Setup.LLDP_Setup(dlist, if_s)
+
+    matrix = Topology()
+
+    Router_IPs = Addressing.Define_IP(matrix)
+
+    Addressing.Assign_IP(Router_IPs, dlist)
 
