@@ -2,6 +2,7 @@ from jnpr.junos import Device
 import LLDP_Setup
 import Topology
 import Addressing
+import Networks
 
 #=====================================================================================
 
@@ -17,7 +18,7 @@ if __name__ == "__main__":
 
     LLDP_Setup.LLDP_Setup(dlist, if_s)
 
-    matrix = Topology()
+    matrix = Topology.Topology(dlist)
 
     Router_IPs = Addressing.Define_IP(matrix)
 
