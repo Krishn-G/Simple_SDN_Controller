@@ -1,6 +1,9 @@
 from jnpr.junos import Device
 
-cost = 1                                                                           #List of Router Names
+cost = 1
+d1=Device(host='192.168.1.24',user='labuser',password='Labuser')
+d2=Device(host='192.168.1.25',user='labuser',password='Labuser')
+dlist = [d1,d2]
 
 #=====================================================================================
 
@@ -44,8 +47,8 @@ def Topology(dlist):
 #=====================================================================================
 
 if __name__ == "__main__":
-    Topology()
-
+    matrix = Topology(dlist)
+    print(matrix)
        # for d in dlist:
     #     router_i = d.rpc.get_system_information()
     #     router_n = router_i.xpath('host-name/text()')[0].replace("'","")

@@ -20,6 +20,8 @@ if __name__ == "__main__":
 
     matrix = Topology.Topology(dlist)
 
+    all_routes = Networks.Customer_Routes(dlist)
+
     Router_IPs = Addressing.Define_IP(matrix)
 
     Addressing.Assign_IP(Router_IPs, dlist)
