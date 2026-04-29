@@ -1,6 +1,5 @@
 import ipaddress
 import pprint
-from jnpr.junos import Device
 from jnpr.junos.utils.config import Config
 from jnpr.junos.exception import ConnectError
 
@@ -47,12 +46,10 @@ def Assign_IP(Router_IPs, dlist):
         d = dlist[r_id]
         try:
             d.open()
-            with Config(d, mode='private') as cu:
-                for int_f, ip_ad in r_ints.items():
-                    cmd = f"set interfaces {int_f} unit 0 family inet address {ip_ad}"
-                    cu.load(cmd, format = 'set')
-                
-                cu.commit()
+            d.bind(conf=Config)
+            d.conf.load(template_path = 'Config_Files/IP_Assignment.conf', template_vars = {'r_ints': r_ints},  merge = True)
+            d.conf.commit()
+            d.close()
         
         except ConnectError:
             raise ConnectError("Unable to connect to device")

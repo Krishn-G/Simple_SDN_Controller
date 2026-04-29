@@ -1,5 +1,11 @@
 from jnpr.junos import Device
 from jnpr.junos.exception import ConnectError
+from lxml import etree
+
+d1=Device(host='192.168.1.26',user='labuser',password='Labuser')
+d2=Device(host='192.168.1.27',user='labuser',password='Labuser')
+d3=Device(host='192.168.1.28',user='labuser',password='Labuser')
+dlist = [d1, d2, d3]
 
 #=====================================================================================
 
@@ -17,6 +23,8 @@ def Customer_Routes(dlist):
         try:
             d.open()
             route_info = d.rpc.get_route_information(table = 'inet.0')
+            # routes = etree.tostring(route_info,pretty_print=True,encoding='unicode')
+            # print(routes)
 
             for route in route_info.xpath('.//rt'):
                 prefix = route.xpath('rt-destination/text()')[0]
@@ -41,4 +49,5 @@ def Customer_Routes(dlist):
 #=====================================================================================
 
 if __name__ == "__main__":
-    pass
+    all_routes = Customer_Routes(dlist)
+    print(all_routes)

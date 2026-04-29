@@ -1,8 +1,8 @@
 from jnpr.junos import Device
 
 cost = 1
-d1=Device(host='192.168.1.24',user='labuser',password='Labuser')
-d2=Device(host='192.168.1.25',user='labuser',password='Labuser')
+d1=Device(host='192.168.1.26',user='labuser',password='Labuser')
+d2=Device(host='192.168.1.27',user='labuser',password='Labuser')
 dlist = [d1,d2]
 
 #=====================================================================================
@@ -49,22 +49,3 @@ def Topology(dlist):
 if __name__ == "__main__":
     matrix = Topology(dlist)
     print(matrix)
-       # for d in dlist:
-    #     router_i = d.rpc.get_system_information()
-    #     router_n = router_i.xpath('host-name/text()')[0].replace("'","")
-    #     Routers.append(router_n)
-    #     ddlist[router_n] = {'local_addresses':[],'if_config':{},'neighbors':{}}
-    # time.sleep(5)
-    # b = 0                                                                               #Current Device Tracker
-    # ip_t = 0                                                                            #IP Tracker
-    # for d in dlist:
-    #     s = d.rpc.get_lldp_neighbors_information()
-    #     d_name = Routers[b]
-    #     for e in s:
-    #         if e.xpath('lldp-local-interface/text()')[0] != 'ge-0/0/0.0':
-    #             local_intf = e.xpath('lldp-local-interface/text()')[0]
-    #             remote_sys = e.xpath('lldp-remote-system-name/text()')[0]
-    #             remote_intf = e.xpath('lldp-remote-port-description/text()')[0]
-                
-    #             s_rpc = d.rpc.get_interface_information(interface_name=local_intf, brief=True)
-    #             speed = s_rpc.xpath('physical-interface/speed')
