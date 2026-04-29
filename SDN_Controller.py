@@ -3,6 +3,7 @@ import LLDP_Setup
 import Topology
 import Addressing
 import Networks
+import Routing
 
 #=====================================================================================
 
@@ -30,4 +31,6 @@ if __name__ == "__main__":
     Router_IPs = Addressing.Define_IP(matrix)
 
     Addressing.Assign_IP(Router_IPs, dlist)
+
+    hops = Routing.Next_Hops(matrix, Router_IPs, all_routes)
 
