@@ -34,6 +34,22 @@ def Next_Hops(matrix, Router_IPs, all_routes):
 
     return next_hops
 
+def Deploy_Routes(next_hop, dlist):
+    for r_id, routes in next_hop.items():
+        d = dlist[r_id]
+        try:
+            d.open()
+            d.bind(conf=Config)
+            d.conf.load(template_path = "Config_Files/Static_Routing.conf", template_vars = {'routes': routes}, merge = True)
+            d.conf.commit()
+            d.close()
+
+        except ConnectError:
+            raise ConnectError("Unable to connect to device")
+        finally:
+            d.close()
+
+
 #=====================================================================================
 
 if __name__ == '__main__':
