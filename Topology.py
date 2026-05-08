@@ -31,7 +31,6 @@ def Cost(d):
     d.close()
     return c
 
-
 def Topology(dlist):
     n_routers= len(dlist)
     matrix = [[None for _ in range(n_routers)] for _ in range(n_routers)]

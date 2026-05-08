@@ -41,9 +41,9 @@ def Deploy_Routes(next_hop, dlist):
         d = dlist[r_id]
         try:
             d.open()
-            d.bind(conf=Config)
-            d.conf.load(template_path = "Config_Files/Static_Routing.conf", template_vars = {'routes': routes}, merge = True)
-            d.conf.commit()
+            d.bind(conf_R=Config)
+            d.conf_R.load(template_path = "Config_Files/Static_Routing.conf", template_vars = {'routes': routes}, merge = True)
+            d.conf_R.commit()
             d.close()
 
         except ConnectError:

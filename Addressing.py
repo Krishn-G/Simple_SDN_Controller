@@ -46,9 +46,9 @@ def Assign_IP(Router_IPs, dlist):
         d = dlist[r_id]
         try:
             d.open()
-            d.bind(conf=Config)
-            d.conf.load(template_path = 'Config_Files/IP_Assignment.conf', template_vars = {'r_ints': r_ints},  merge = True)
-            d.conf.commit()
+            d.bind(conf_A=Config)
+            d.conf_A.load(template_path = 'Config_Files/IP_Assignment.conf', template_vars = {'r_ints': r_ints},  merge = True)
+            d.conf_A.commit()
             d.close()
         
         except ConnectError:

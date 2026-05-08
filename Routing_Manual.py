@@ -1,4 +1,3 @@
-import networkx as nx
 from jnpr.junos.exception import ConnectError
 from jnpr.junos.utils.config import Config
 
@@ -74,9 +73,9 @@ def Deploy_Routes(next_hop, dlist):
         d = dlist[r_id]
         try:
             d.open()
-            d.bind(conf=Config)
-            d.conf.load(template_path = "Config_Files/Static_Routing.conf", template_vars = {'routes': routes}, merge = True)
-            d.conf.commit()
+            d.bind(config_=Config)
+            d.config_.load(template_path = "Config_Files/Static_Routing.conf", template_vars = {'routes': routes}, merge = True)
+            d.config_.commit()
             d.close()
 
         except ConnectError:
