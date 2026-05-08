@@ -1,11 +1,36 @@
 from jnpr.junos import Device
+from lxml import etree
 
-cost = 1
 d1=Device(host='192.168.1.26',user='labuser',password='Labuser')
 d2=Device(host='192.168.1.27',user='labuser',password='Labuser')
 dlist = [d1,d2]
 
 #=====================================================================================
+
+def Extract_Speed(speed):
+    s = ''
+
+    i = 1    
+    while i < len(speed) and speed[i].isdigit():
+        s +=  speed[i]
+        i += 1
+
+    s_ = int(s)
+
+    if i < len(speed) and speed[i] == 'g':
+        s_ *= 1000
+    return s_
+
+def Cost(d):
+    c = 1
+    d.open()
+    int_info = d.rpc.get_interface_information(interface_name='ge-0/0/0', brief=True)
+    speed_str = int_info.xpath('.//speed/text()')[0]
+    speed = Extract_Speed(speed_str)
+    c = 100000 / speed
+    d.close()
+    return c
+
 
 def Topology(dlist):
     n_routers= len(dlist)
@@ -34,6 +59,7 @@ def Topology(dlist):
             
             remot_host = neighbor.xpath('lldp-remote-system-name/text()')[0]
             remot_if = neighbor.xpath('lldp-remote-port-description/text()')[0]
+            cost = Cost(d)
 
             if (remot_host in name_id):
                 j = name_id[remot_host]
